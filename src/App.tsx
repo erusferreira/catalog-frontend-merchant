@@ -1,11 +1,9 @@
-// import { useState } from 'react'
+import Profile from "./profile/Profile";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Catalog Merchant</h1>
+      <Profile/>
     </>
   )
 }

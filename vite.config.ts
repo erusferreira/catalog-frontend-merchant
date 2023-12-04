@@ -10,9 +10,10 @@ export default defineConfig({
       name: "merchant",
       filename: "remoteEntry.js",
       exposes: {
-        "./CatalogMerchant": "./src/App"
+        "./CatalogMerchant": "./src/App",
+        "./store": "./src/store"
       },
-      shared: ["react", "react-dom"],
+      shared: ["react", "react-dom", "jotai"],
     }),
   ],
   build: {

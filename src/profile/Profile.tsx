@@ -51,7 +51,7 @@ export default function Profile() {
       if (error.response.status == 401) {
         setAuthorized(false)
       }
-      throw new Error(`Erro ao carregar catálogos: ${error}`);
+      throw new Error(`Erro ao carregar dados da loja ${error}`);
     }
   }
 

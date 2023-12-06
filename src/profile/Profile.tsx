@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { http } from "../configs/axios.config";
 
-import { useMerchantToken, useAuthorized, useMerchantUserMerchant } from "store";
+import { useMerchantAuthorized, useMerchantToken, useMerchantUserMerchant } from "store";
 import { APIConfig } from "../configs/api.config.constant";
 import { parseDate } from "utils/date";
 
@@ -29,7 +29,7 @@ export default function Profile() {
     });
     const [ token ] = useMerchantToken();
     const [ merchantId ] = useMerchantUserMerchant();
-    const [ , setAuthorized ] = useAuthorized();
+    const [ , setAuthorized ] = useMerchantAuthorized();
   
   async function fetchApi() {
     try {

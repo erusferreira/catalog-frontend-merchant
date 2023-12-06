@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { http } from "../configs/axios.config";
 
-import { useMerchantToken, useAuthorized } from "store";
+import { useMerchantToken, useAuthorized, useMerchantUserMerchant } from "store";
 import { APIConfig } from "../configs/api.config.constant";
 import { parseDate } from "utils/date";
 
@@ -27,15 +27,14 @@ export default function Profile() {
       status: '',
       createdAt: ''
     });
-    const [ state ] = useMerchantToken();
+    const [ token ] = useMerchantToken();
+    const [ merchantId ] = useMerchantUserMerchant();
     const [ , setAuthorized ] = useAuthorized();
   
   async function fetchApi() {
     try {
-      // TO DO - Replace this magic number
-      const merchantId = '655f87fd77fad23f900510b2';
       const url = APIConfig.MERCHANT.GET(merchantId);
-      const { data } = await http.get(url, { headers: { Authorization: state } });
+      const { data } = await http.get(url, { headers: { Authorization: token } });
   
       if (data) {
         setMerchant({

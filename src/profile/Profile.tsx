@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
 import { http } from "../configs/axios.config";
 
-import { useMerchantAuthorized, useMerchantToken, useMerchantUserMerchant } from "store";
+import { useMerchantAuthorized } from "store";
 import { APIConfig } from "../configs/api.config.constant";
 import { parseDate } from "utils/date";
 
@@ -16,7 +17,9 @@ import {
   StyledDetailRow,
   StyledDetailColumn,
   StyledHR
-} from "./styled"
+} from "./styled";
+
+import { localStorageService } from "../services/localstorage-service";
 
 export default function Profile() {
   const [ merchant, setMerchant ] = useState({
@@ -26,15 +29,16 @@ export default function Profile() {
       owner: '',
       status: '',
       createdAt: ''
-    });
-    const [ token ] = useMerchantToken();
-    const [ merchantId ] = useMerchantUserMerchant();
-    const [ , setAuthorized ] = useMerchantAuthorized();
-  
+  });
+  const [ , setAuthorized ] = useMerchantAuthorized();
+
   async function fetchApi() {
     try {
-      const url = APIConfig.MERCHANT.GET(merchantId);
-      const { data } = await http.get(url, { headers: { Authorization: token } });
+      const lsService = localStorageService();
+      const inMemoryUser = lsService.getToken('user');
+
+      const url = APIConfig.MERCHANT.GET(inMemoryUser.merchant);
+      const { data } = await http.get(url, { headers: { Authorization: inMemoryUser.token } });
   
       if (data) {
         setMerchant({
